@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PPSC Academic Merit Calculator</string>
+
+    <string-array name="edusystem_array">
+        <item>---Select an education system---</item>
+        <item>Annual</item>
+        <item>Semester</item>
+    </string-array>
+
+</resources>
