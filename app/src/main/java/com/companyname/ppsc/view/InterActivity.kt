@@ -1,34 +1,49 @@
-package com.companyname.ppsc.Controller
+package com.companyname.ppsc.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.Toast
-import com.companyname.ppsc.Model.GenericFunctions
+import androidx.lifecycle.ViewModelProvider
+import com.companyname.ppsc.BuildConfig
+import com.companyname.ppsc.model.GenericFunctions
 import com.companyname.ppsc.R
+import com.companyname.ppsc.viewModel.BachelorActivityViewModel
 import com.facebook.ads.AdSize
 import com.facebook.ads.AdView
 import kotlinx.android.synthetic.main.activity_inter.*
-import kotlinx.android.synthetic.main.activity_matric.*
 
 class InterActivity : AppCompatActivity() {
 
-    private lateinit var genericFunc: GenericFunctions
     private lateinit var examType: String
     private var matricPercentage: Int=0
     private var matricEduType: String=""
     private var backToast: Toast? = null
     private lateinit var mAdView: AdView
+    private lateinit var toolbar: androidx.appcompat.widget.Toolbar
+    private lateinit var bachelorActivityViewModel: BachelorActivityViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inter)
+
+        initView()
+
+    }
+
+    private fun initView() {
+
+        toolbar=findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar);
+        supportActionBar?.title ="Enter Hssc Marks"
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
@@ -53,7 +68,8 @@ class InterActivity : AppCompatActivity() {
             interBtn.setText("Next")
         }
 
-        genericFunc= GenericFunctions()
+        //genericFunc= GenericFunctions()
+        bachelorActivityViewModel=ViewModelProvider(this).get(BachelorActivityViewModel::class.java)
 
         interTotalTxt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -90,7 +106,34 @@ class InterActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu,menu)
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        val id:Int=item.itemId
+
+        if(id==R.id.action_bar_share){
+            shareApp()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    fun shareApp(){
+        val sendIntent = Intent()
+        sendIntent.action = Intent.ACTION_SEND
+        sendIntent.putExtra(
+            Intent.EXTRA_TEXT,
+            "PPSC me job k liye apna academic merit maloom karne ke liye is app ko download kren : https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID
+        )
+        sendIntent.type = "text/plain"
+        startActivity(sendIntent)
     }
 
     fun interBtnClicked(view: View){
@@ -99,10 +142,11 @@ class InterActivity : AppCompatActivity() {
             backToast=Toast.makeText(this,"Fill the blank fields", Toast.LENGTH_SHORT)
             backToast?.show()
         }else{
-            val percentage=(interObtainedTxt.text.toString().toDouble()/interTotalTxt.text.toString().toDouble()) * 100
+            val percentage=bachelorActivityViewModel.calculatePercentage(interObtainedTxt.text.toString().toDouble(),
+                                                                            interTotalTxt.text.toString().toDouble())
             if(examType=="examtype2"){
-                val interMarks=genericFunc.getMarks(examType,"inter",interDropDown.selectedItem.toString(),percentage.toInt())
-                val matricMarks=genericFunc.getMarks(examType,"matric",matricEduType,matricPercentage)
+                val interMarks=bachelorActivityViewModel.getMarks(examType,"inter",interDropDown.selectedItem.toString(),percentage.toInt())
+                val matricMarks=bachelorActivityViewModel.getMarks(examType,"matric",matricEduType,matricPercentage)
                 val finalPageIntent=Intent(this,FinalPageActivity::class.java)
                 finalPageIntent.putExtra("MATRIC_MARKS",matricMarks[0].toInt())
                 finalPageIntent.putExtra("INTER_MARKS",interMarks[0].toInt())

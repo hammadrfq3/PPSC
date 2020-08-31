@@ -1,9 +1,10 @@
-package com.companyname.ppsc.Model
+package com.companyname.ppsc.model
 
-import android.os.Parcel
-import android.os.Parcelable
+import android.app.Application
 
-public class GenericFunctions {
+class GenericFunctions {
+
+
 
     fun getMarks(eType: String,className: String,eduType: String,percentage: Int): List<Int>{
         var list= arrayListOf<Int>()

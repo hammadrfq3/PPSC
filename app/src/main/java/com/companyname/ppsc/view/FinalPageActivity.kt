@@ -1,6 +1,8 @@
-package com.companyname.ppsc.Controller
+package com.companyname.ppsc.view
 
+import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -11,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.companyname.ppsc.R
 import com.facebook.ads.AdSize
 import com.facebook.ads.AdView
+import com.google.android.play.core.review.ReviewManagerFactory
 import kotlinx.android.synthetic.main.activity_final_page.*
 
 
@@ -23,11 +26,13 @@ class FinalPageActivity : AppCompatActivity() {
     private var masterT: Int=0
     lateinit var mDialog: Dialog
     private lateinit var mAdView: AdView
+    private lateinit var context: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_final_page)
 
+        context=this
         mAdView = AdView(this, "2561807714083439_2561809617416582", AdSize.BANNER_HEIGHT_50)
 
         // Find the Ad Container
@@ -81,6 +86,29 @@ class FinalPageActivity : AppCompatActivity() {
         MainTitle.text="Your academic merit for $examType based jobs"
         MainTitle.isAllCaps=true
         resultTxt.text="$result/40"
+
+        showInAppReview()
+    }
+
+    fun showInAppReview(){
+        val manager = ReviewManagerFactory.create(context)
+        val request = manager.requestReviewFlow()
+        request.addOnCompleteListener { request ->
+            if (request.isSuccessful) {
+                // We got the ReviewInfo object
+                val reviewInfo = request.result
+                val flow = manager.launchReviewFlow(context as Activity, reviewInfo)
+                flow.addOnCompleteListener { _ ->
+                    // The flow has finished. The API does not indicate whether the user
+                    // reviewed or not, or even whether the review dialog was shown. Thus, no
+                    // matter the result, we continue our app flow.
+                }
+            } else {
+                // There was some problem, continue regardless of the result.
+            }
+        }
+
+
     }
 
     fun noteBtnClicked(view: View){

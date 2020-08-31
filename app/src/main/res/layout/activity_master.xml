@@ -4,24 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controller.MasterActivity">
+    tools:context=".view.MasterActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimary"
-        android:fontFamily="@font/montserrat"
-        android:gravity="center"
-        android:text="Enter Higher Education Marks"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar"
+        />
 
 
     <LinearLayout
@@ -33,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <TextView
             android:id="@+id/textView2"
@@ -77,44 +64,60 @@
             android:layout_marginRight="45dp"
             android:entries="@array/edusystem_array" />
 
-        <EditText
-            android:id="@+id/masterPercentageTxt"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/masterPercentageTxtInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="45dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="45dp"
-            android:ems="10"
-            android:fontFamily="@font/montserrat"
-            android:hint="Enter Percentage"
-            android:inputType="number"
-            android:visibility="visible" />
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="45dp">
 
-        <EditText
-            android:id="@+id/masterObtainedTxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="45dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="45dp"
-            android:ems="10"
-            android:fontFamily="@font/montserrat"
-            android:hint="Enter Obtained Text"
-            android:inputType="number"
-            android:visibility="visible" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/masterPercentageTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/montserrat"
+                android:hint="Enter Percentage"
+                android:inputType="number"  />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/masterTotalTxt"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/masterObtainedTxtInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="45dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="45dp"
-            android:ems="10"
-            android:fontFamily="@font/montserrat"
-            android:hint="Enter Total Text"
-            android:inputType="number"
-            android:visibility="visible" />
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="45dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/masterObtainedTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/montserrat"
+                android:hint="Enter Obtained Marks"
+                android:inputType="number"  />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/masterTotalTxtInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="45dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/masterTotalTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/montserrat"
+                android:hint="Enter Total Marks"
+                android:inputType="number"  />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <Button
             android:id="@+id/masterBtn"

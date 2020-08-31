@@ -4,24 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controller.MatricActivity">
+    tools:context=".view.MatricActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimary"
-        android:fontFamily="@font/montserrat"
-        android:gravity="center"
-        android:text="Enter SSC Marks"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar"
+        />
 
 
     <LinearLayout
@@ -33,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <TextView
             android:id="@+id/textView2"
@@ -81,29 +68,39 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-        <EditText
-            android:id="@+id/matricObtainedTxt"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="45dp"
             android:layout_marginTop="24dp"
-            android:layout_marginRight="45dp"
-            android:ems="10"
-            android:fontFamily="@font/montserrat"
-            android:hint="Enter Obtained Marks"
-            android:inputType="number" />
+            android:layout_marginRight="45dp">
 
-        <EditText
-            android:id="@+id/matricTotalTxt"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/matricObtainedTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/montserrat"
+                android:hint="Enter Obtained Marks"
+                android:inputType="number"  />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="45dp"
             android:layout_marginTop="24dp"
-            android:layout_marginRight="45dp"
-            android:ems="10"
-            android:fontFamily="@font/montserrat"
-            android:hint="Enter Total Marks"
-            android:inputType="number" />
+            android:layout_marginRight="45dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/matricTotalTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/montserrat"
+                android:hint="Enter Total Marks"
+                android:inputType="number"  />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/Btn"

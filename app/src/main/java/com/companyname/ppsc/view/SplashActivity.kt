@@ -1,4 +1,4 @@
-package com.companyname.ppsc.Controller
+package com.companyname.ppsc.view
 
 import android.content.Intent
 import android.os.Bundle
